@@ -1,0 +1,230 @@
+@BlackRock_Hackathon_HostAddress = http://localhost:5146
+
+### Transaction Builder
+POST {{BlackRock_Hackathon_HostAddress}}/blackrock/challenge/v1/transactions/parse
+Accept: application/json
+Content-Type: application/json
+
+[
+    {
+        "date": "2023-10-12T20:15:30",
+        "amount": 250
+    },
+    {
+        "date": "2023-02-28T15:49:20",
+        "amount": 375
+    },
+    {
+        "date": "2023-07-01T21:59:00",
+        "amount": 620
+    },
+    {
+        "date": "2023-12-17T08:09:45",
+        "amount": 480
+    }
+]
+
+### Transaction Validator
+POST {{BlackRock_Hackathon_HostAddress}}/blackrock/challenge/v1/transactions/validator
+Accept: application/json
+Content-Type: application/json
+
+{
+  "wage": 50000,
+  "transactions": [
+    {
+      "date": "2023-01-15T10:30:00",
+      "amount": 2000,
+      "ceiling": 2000,
+      "remanent": 0
+    },
+    {
+      "date": "2023-03-20T14:45:00",
+      "amount": 350,
+      "ceiling": 400,
+      "remanent": 50
+    },
+    {
+      "date": "2023-06-10T09:15:00",
+      "amount": 1500,
+      "ceiling": 1500,
+      "remanent": 0
+    },
+    {
+      "date": "2023-07-10T09:15:00",
+      "amount": -250,
+      "ceiling": 300,
+      "remanent": 50
+    }
+  ]
+}
+
+
+### Temporal Constraints Validator
+POST {{BlackRock_Hackathon_HostAddress}}/blackrock/challenge/v1/transactions/filter
+Accept: application/json
+Content-Type: application/json
+
+{
+  "q": [
+    {
+      "fixed": 0,
+      "start": "2023-07-01T00:00:00",
+      "end": "2023-07-31T23:59:59"
+    }
+  ],
+  "p": [
+    {
+      "extra": 30,
+      "start": "2023-10-01T00:00:00",
+      "end": "2023-12-31T23:59:59"
+    }
+  ],
+  "k": [
+    {
+      "start": "2023-01-01T00:00:00",
+      "end": "2023-12-31T23:59:59"
+    }
+  ],
+  "wage": 50000,
+  "transactions": [
+    {
+      "date": "2023-02-28T15:49:20",
+      "amount": 375
+    },
+    {
+      "date": "2023-07-15T10:30:00",
+      "amount": 620
+    },
+    {
+      "date": "2023-10-12T20:15:30",
+      "amount": 250
+    },
+    {
+      "date": "2023-10-12T20:15:30",
+      "amount": 250
+    },
+    {
+      "date": "2023-12-17T08:09:45",
+      "amount": -480
+    }
+  ]
+}
+
+### Returns Calculation NPS
+POST {{BlackRock_Hackathon_HostAddress}}/blackrock/challenge/v1/returns/nps
+Accept: application/json
+Content-Type: application/json
+
+{
+    "age": 29,
+    "wage": 50000,
+    "inflation": 5.5,
+    "q": [
+        {
+            "fixed": 0,
+            "start": "2023-07-01T00:00:00",
+            "end": "2023-07-31T23:59:59"
+        }
+    ],
+    "p": [
+        {
+            "extra": 25,
+            "start": "2023-10-01T08:00:00",
+            "end": "2023-12-31T19:59:59"
+        }
+    ],
+    "k": [
+        {
+            "start": "2023-01-01T00:00:00",
+            "end": "2023-12-31T23:59:59"
+        },
+        {
+            "start": "2023-03-01T00:00:00",
+            "end": "2023-11-30T23:59:59"
+        }
+    ],
+    "transactions": [
+        {
+            "date": "2023-02-28T15:49:20",
+            "amount": 375
+        },
+        {
+            "date": "2023-07-01T21:59:00",
+            "amount": 620
+        },
+        {
+            "date": "2023-10-12T20:15:30",
+            "amount": 250
+        },
+        {
+            "date": "2023-12-17T08:09:45",
+            "amount": 480
+        },
+        {
+            "date": "2023-12-17T08:09:45",
+            "amount": -10
+        }
+    ]
+}
+
+### Returns Calculation Index
+POST {{BlackRock_Hackathon_HostAddress}}/blackrock/challenge/v1/returns/index
+Accept: application/json
+Content-Type: application/json
+
+{
+    "age": 29,
+    "wage": 50000,
+    "inflation": 5.5,
+    "q": [
+        {
+            "fixed": 0,
+            "start": "2023-07-01T00:00:00",
+            "end": "2023-07-31T23:59:59"
+        }
+    ],
+    "p": [
+        {
+            "extra": 25,
+            "start": "2023-10-01T08:00:00",
+            "end": "2023-12-31T19:59:59"
+        }
+    ],
+    "k": [
+        {
+            "start": "2023-01-01T00:00:00",
+            "end": "2023-12-31T23:59:59"
+        },
+        {
+            "start": "2023-03-01T00:00:00",
+            "end": "2023-11-30T23:59:59"
+        }
+    ],
+    "transactions": [
+        {
+            "date": "2023-02-28T15:49:20",
+            "amount": 375
+        },
+        {
+            "date": "2023-07-01T21:59:00",
+            "amount": 620
+        },
+        {
+            "date": "2023-10-12T20:15:30",
+            "amount": 250
+        },
+        {
+            "date": "2023-12-17T08:09:45",
+            "amount": 480
+        },
+        {
+            "date": "2023-12-17T08:09:45",
+            "amount": -10
+        }
+    ]
+}
+
+### Performance Report
+GET {{BlackRock_Hackathon_HostAddress}}/blackrock/challenge/v1/performance
+Accept: application/json

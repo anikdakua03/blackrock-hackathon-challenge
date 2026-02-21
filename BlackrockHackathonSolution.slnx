@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Blackrock-Hackathon/Blackrock-Hackathon.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="Blackrock-Hackathon.Tests/Blackrock-Hackathon.Tests.csproj" />
+  </Folder>
+</Solution>
