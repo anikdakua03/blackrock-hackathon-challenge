@@ -2,6 +2,7 @@ using Blackrock_Hackathon.Interfaces;
 using BlackRock_Hackathon.Enums;
 using BlackRock_Hackathon.Middlewares;
 using BlackRock_Hackathon.Services;
+using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,19 +18,21 @@ builder.Services.AddKeyedScoped<IInvestmentReturnsCalculator, IndexInvestmentRet
 
 builder.Services.AddSingleton<PerformanceTimer>();
 
-// Register the custom middleware explicitely as Transient for every request
+// Register the custom middleware explicitly as Transient for every request
 builder.Services.AddTransient<PerformanceMiddleware>();
 
 builder.Services.AddOpenApi();
 
 WebApplication app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+// NOTE : Part of hackathon challenge, so kept public
+app.MapOpenApi();
+app.MapScalarApiReference();
 
-// Add custom middleware to the pipieline
+// Automatically redirect to Scalar documentation
+app.MapGet("/", () => Results.Redirect("/scalar"));
+
+// Add custom middleware to the pipeline
 app.UseMiddleware<PerformanceMiddleware>();
 
 app.MapControllers();

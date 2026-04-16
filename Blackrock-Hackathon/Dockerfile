@@ -1,4 +1,10 @@
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
+# docker build -t blk-hacking-ind-{name-lastname} -f Blackrock-Hackathon/Dockerfile .
+#
+# Base image selection:
+# - OS: Debian-based Linux (selected because official Microsoft .NET images use Debian/Ubuntu
+#   variants by default, providing a small, secure, and widely-compatible runtime surface).
+# - Criteria: minimal footprint, official vendor support for .NET 10, regular security updates,
+#   and compatibility with Linux container hosts used in CI/CD and cloud deployments.
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 USER $APP_UID
 WORKDIR /app
